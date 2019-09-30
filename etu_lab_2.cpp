@@ -33,7 +33,7 @@ int main()
 	while (end == 'y' )
 	{
 		//Размер массива (Натуральные числа, "0" не включен).
-		const int N = 100;
+		const int N = 10;
 		int random_array[N];
 		//Счетчики для циклов for.
 		int i = 0;
@@ -44,7 +44,7 @@ int main()
 		//Сбрасываем переменную i.
 		i = 0;
 		//Теперь вывод массива в консоль вынесен в отдельную функцию - print_array.
-		cout << "random_array before sorting:\n\n";
+		cout << "\nrandom_array before sorting:\n\n";
 		print_array(N, i, j, random_array);
 
 
@@ -53,7 +53,7 @@ int main()
 		int exchange;
 		do
 		{
-			j = 0;
+			j = 0; //Отвечает за досрочный выход из цикла при завершении сортировки
 			for (i; i < counter; i++)
 			{
 				if (random_array[i] > random_array[i + 1])
@@ -67,19 +67,63 @@ int main()
 			counter -= 1;
 			i = 0;
 		} while (j != 0);
-		//Сбрасываем переменные (i и j уже равны 0).
-		counter = 0;
-		exchange = 0;
 		//Распечатываем отсортированный массив
 		cout << "\nBubble sort:\n\n";
 		print_array(N, i, j, random_array);
 
 
-		//Shaker sort
+		//Цикл повторно заполняет массив random_array случайными значениями в диапазоне от 0 до 99 (int).
+		srand(time(NULL));
+		for (i; i < N; i++) random_array[i] = rand() % 100;
+		//Сбрасываем переменную i.
+		i = 0;
+		//Теперь вывод массива в консоль вынесен в отдельную функцию - print_array.
+		cout << "\nrandom_array before sorting:\n\n";
+		print_array(N, i, j, random_array);
 
+
+		//Shaker sort
+		//Дополнительный счетчик
+		int gcounter = 0;
+		//Сбрасываем старый счетчик
+		counter = N - 1;
+		do
+		{
+			j = 0; //Отвечает за досрочный выход из цикла при завершении сортировки
+			for (i; i < counter; i++)
+			{
+				if (random_array[i] > random_array[i + 1])
+				{
+					exchange = random_array[i];
+					random_array[i] = random_array[i + 1];
+					random_array[i + 1] = exchange;
+					j += 1;
+				}
+			}
+			i = gcounter; //После прохода направо самый левый элемент (из еще не отсортированых) остается в процессе сортировки
+			gcounter += 1; //Отвечает за сужение границ сортировки
+			counter = N - 1 - gcounter; //После прохода направо самый правый элемент (из еще не отсортированых) уже отсортирован
+			for (counter; i < counter; counter--)
+			{
+				if (random_array[counter] < random_array[counter - 1])
+				{
+					exchange = random_array[counter];
+					random_array[counter] = random_array[counter - 1];
+					random_array[counter - 1] = exchange;
+					j += 1;
+				}
+			}
+			i = gcounter; //После прохода налево самый левый элемент (из еще не отсортированых) уже отсортирован
+			counter = N - 1 - gcounter; //После прохода налево самый правый элемент (из еще не отсортированых) остается в процессе сортировки
+		} while (j != 0);
+		//Сбрасываем переменную i.
+		i = 0;
+		//Распечатываем отсортированный массив
+		cout << "\nShaker sort:\n\n";
+		print_array(N, i, j, random_array);
 
 		//Проверка на повторный запуск программы
-		cout << "Run this program again now? (y / n = any other character)";
+		cout << "\nRun this program again now? (y / n = any other character)";
 		cin >> end;
 	}
 	return 0;
