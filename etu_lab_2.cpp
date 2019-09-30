@@ -3,26 +3,26 @@
 #include <chrono>
 using namespace std;
 
-//Функция для вывода массива в консоль
-//Если значение элемента массива меньше 10 (только 1 разряд), перед ним в консоль печатается дополнительный пробел.
-void print_array(int N, int i, int j, int random_array[])
+void print_array(int amount_of_elements, int counter, int counter10, int arr[])
+//Процедура для вывода массива в консоль, 10 элементов на одной строке
+//Если значение элемента массива меньше 10 (у числа только 1 разряд), перед ним в консоль печатается дополнительный пробел.
 {
-	for (i; i < N; i++)
+	for (counter; counter < amount_of_elements; counter++)
 	{
-		j += 1;
-		if (j % 10 == 0)
+		counter10 += 1;
+		if (counter10 % 10 == 0)
 		{
-			if (random_array[i] >= 10)
-				cout << random_array[i] << "\n";
+			if (arr[counter] >= 10)
+				cout << arr[counter] << "\n";
 			else
-				cout << " " << random_array[i] << "\n";
+				cout << " " << arr[counter] << "\n";
 		}
 		else
 		{
-			if (random_array[i] >= 10)
-				cout << random_array[i] << " ";
+			if (arr[counter] >= 10)
+				cout << arr[counter] << " ";
 			else
-				cout << " " << random_array[i] << " ";
+				cout << " " << arr[counter] << " ";
 		}
 	}
 }
@@ -33,7 +33,7 @@ int main()
 	while (end == 'y' )
 	{
 		//Размер массива (Натуральные числа, "0" не включен).
-		const int N = 10;
+		const int N = 100;
 		int random_array[N];
 		//Счетчики для циклов for.
 		int i = 0;
@@ -123,7 +123,7 @@ int main()
 		print_array(N, i, j, random_array);
 
 		//Проверка на повторный запуск программы
-		cout << "\nRun this program again now? (y / n = any other character)";
+		cout << "\nRun this program again now? (y/n)(one lowercase letter and 'Enter')";
 		cin >> end;
 	}
 	return 0;
