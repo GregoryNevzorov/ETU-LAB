@@ -3,10 +3,12 @@
 #include <chrono>
 using namespace std;
 
-void print_array(int amount_of_elements, int counter, int counter10, int arr[])
+void print_array(int amount_of_elements, int arr[])
 //Процедура для вывода массива в консоль, 10 элементов на одной строке
 //Если значение элемента массива меньше 10 (у числа только 1 разряд), перед ним в консоль печатается дополнительный пробел.
 {
+	int counter = 0;
+	int counter10 = 0;
 	for (counter; counter < amount_of_elements; counter++)
 	{
 		counter10 += 1;
@@ -30,7 +32,7 @@ void print_array(int amount_of_elements, int counter, int counter10, int arr[])
 int main()
 {
 	char end = 'y';
-	while (end == 'y' )
+	while (end == 'y')
 	{
 		//Размер массива (Натуральные числа, "0" не включен).
 		const int N = 100;
@@ -45,7 +47,7 @@ int main()
 		i = 0;
 		//Теперь вывод массива в консоль вынесен в отдельную функцию - print_array.
 		cout << "\nrandom_array before sorting:\n\n";
-		print_array(N, i, j, random_array);
+		print_array(N, random_array);
 
 
 		//Bubble sort
@@ -69,7 +71,7 @@ int main()
 		} while (j != 0);
 		//Распечатываем отсортированный массив
 		cout << "\nBubble sort:\n\n";
-		print_array(N, i, j, random_array);
+		print_array(N, random_array);
 
 
 		//Цикл повторно заполняет массив random_array случайными значениями в диапазоне от 0 до 99 (int).
@@ -79,7 +81,7 @@ int main()
 		i = 0;
 		//Теперь вывод массива в консоль вынесен в отдельную функцию - print_array.
 		cout << "\nrandom_array before sorting:\n\n";
-		print_array(N, i, j, random_array);
+		print_array(N, random_array);
 
 
 		//Shaker sort
@@ -120,7 +122,7 @@ int main()
 		i = 0;
 		//Распечатываем отсортированный массив
 		cout << "\nShaker sort:\n\n";
-		print_array(N, i, j, random_array);
+		print_array(N, random_array);
 
 		//Проверка на повторный запуск программы
 		cout << "\nRun this program again now? (y/n)(one lowercase letter and 'Enter')";
