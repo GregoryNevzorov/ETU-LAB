@@ -102,6 +102,7 @@ void bubble_sort(short int amount_of_elements, short int *arr)
 	short int exchange;
 	short int i = 0; //Переменная-счетчик для цикла for.
 	short int early_exit; //Отвечает за досрочный выход из цикла при завершении сортировки.
+	unsigned int start_time = clock();
 	do
 	{
 		early_exit = 0;
@@ -119,6 +120,8 @@ void bubble_sort(short int amount_of_elements, short int *arr)
 		amount_of_elements -= 1;
 		i = 0;
 	} while (early_exit != 0);
+	unsigned int end_time = clock();
+	cout << float(end_time - start_time) / 1000 << " sec\n\n";
 }
 
 void shaker_sort(short int amount_of_elements, short int *arr)
@@ -128,6 +131,7 @@ void shaker_sort(short int amount_of_elements, short int *arr)
 	short int exchange;
 	long int early_exit; //Отвечает за досрочный выход из цикла при завершении сортировки.
 	short int i; //Переменная-счетчик для цикла for.
+	unsigned int start_time = clock();
 	do
 	{
 		early_exit = 0;
@@ -156,6 +160,8 @@ void shaker_sort(short int amount_of_elements, short int *arr)
 		}
 		left_border += 1;
 	} while (early_exit != 0);
+	unsigned int end_time = clock();
+	cout << float(end_time - start_time) / 1000 << " sec\n\n";
 }
 
 void number_of_averages(short int amount_of_elements, short int *arr) //between the minimum and maximum values ​​in the array.
@@ -222,7 +228,7 @@ int main()
 	char end = 'y';
 	while (end == 'y')
 	{
-		const short int N = 100; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
+		const short int N = 32767; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
 		short int *random_array = new short int[N]; //Массив помещается в "кучу", для стабильной работы стека.
 		
 		//Заполняем массив random_array случайными элементами и выводим его в консоль.
