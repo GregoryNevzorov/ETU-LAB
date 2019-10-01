@@ -4,13 +4,13 @@
 using namespace std;
 
 void print_array(short int amount_of_elements, short int *arr)
-//Процедура для вывода массива arr (short int) длины amount_of_elements в консоль.
+//Процедура для вывода массива arr длины amount_of_elements в консоль, 10 элементов на строку.
 //Если количество элементов в массиве больше 200, печатает по 20 элементов в строке.
 //Если количество элементов в массиве больше 600, печатает по 40 элементов в строке.
 //Если значение элемента массива меньше 10 (у числа только 1 разряд), перед ним в консоль печатается дополнительный пробел.
 //После выполнения процедуры курсор переводится на две строки вниз.
 {
-	int counter = 0;
+	short int counter = 0;
 	if (amount_of_elements <= 200)
 	{
 		for (counter; counter < amount_of_elements; counter++)
@@ -90,11 +90,72 @@ void randomize_array(short int amount_of_elements, short int *arr)
 //Процедура заполняет массив arr длины amount_of_elements случайными значениями [srand(time(NULL))] в диапазоне от 0 до 99 (int).
 {
 	srand(time(NULL));
-	int counter = 0;
+	short int counter = 0;
 	for (counter; counter < amount_of_elements; counter++)
 	{
 		arr[counter] = rand() % 100;
 	}
+}
+
+void bubble_sort(short int amount_of_elements, short int *arr)
+{
+	short int exchange;
+	short int i = 0; //Переменная-счетчик для цикла for
+	short int early_exit; //Отвечает за досрочный выход из цикла при завершении сортировки
+	do
+	{
+		early_exit = 0;
+
+		for (i; i < amount_of_elements; i++)
+		{
+			if (arr[i] > arr[i + 1])
+			{
+				exchange = arr[i];
+				arr[i] = arr[i + 1];
+				arr[i + 1] = exchange;
+				early_exit += 1;
+			}
+		}
+		amount_of_elements -= 1;
+		i = 0;
+	} while (early_exit != 0);
+}
+
+void shaker_sort(short int amount_of_elements, short int* arr)
+{
+	short int left_border = 0;
+	short int right_border = 0;
+	short int exchange;
+	short int early_exit; //Отвечает за досрочный выход из цикла при завершении сортировки
+	short int i; //Переменная-счетчик для цикла for
+	do
+	{
+		early_exit = 0;
+		i = left_border;
+		for (i; i < amount_of_elements - right_border; i++)
+		{
+			if (arr[i] > arr[i + 1])
+			{
+				exchange = arr[i];
+				arr[i] = arr[i + 1];
+				arr[i + 1] = exchange;
+				early_exit += 1;
+			}
+		}
+		right_border += 1;
+		i = amount_of_elements - right_border - 1; //Т.к. в массивах индексы нумеруются с нуля.
+		for (i; i > left_border - 1; i--)
+		{
+			if (arr[i] < arr[i - 1])
+			{
+				exchange = arr[i];
+				arr[i] = arr[i - 1];
+				arr[i - 1] = exchange;
+				early_exit += 1;
+			}
+		}
+		left_border += 1;
+	} while (early_exit != 0);
 }
 
 int main()
@@ -102,84 +163,29 @@ int main()
 	char end = 'y';
 	while (end == 'y')
 	{
-		const short int N = 199; //Размер массива (Натуральные числа до 32767, "0" не включен).
+		const short int N = 100; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
 		short int random_array[N];
 		
-		//Счетчики для циклов for.
-		int i = 0;
-		int j = 0;
-		
+		//Заполняем массив random_array случайными элементами и выводим его в консоль
 		randomize_array(N, random_array);
 		cout << "random_array before sorting:\n\n";
 		print_array(N, random_array);
 
 
-		////Bubble sort
-		int counter = N - 1;
-		int exchange;
-		do
-		{
-			j = 0; //Отвечает за досрочный выход из цикла при завершении сортировки
-			for (i; i < counter; i++)
-			{
-				if (random_array[i] > random_array[i + 1])
-				{
-					exchange = random_array[i];
-					random_array[i] = random_array[i + 1];
-					random_array[i + 1] = exchange;
-					j += 1;
-				}
-			}
-			counter -= 1;
-			i = 0;
-		} while (j != 0);
-		
+		//Bubble sort
+		bubble_sort(N, random_array);
 		//Распечатываем отсортированный массив
 		cout << "Bubble sort:\n\n";
 		print_array(N, random_array);
 
-
+		//Заполняем массив random_array случайными элементами и выводим его в консоль
 		randomize_array(N, random_array);
 		cout << "random_array before sorting:\n\n";
 		print_array(N, random_array);
 
 
 		//Shaker sort
-		//Дополнительный счетчик
-		int gcounter = 0;
-		//Сбрасываем старый счетчик
-		counter = N - 1;
-		do
-		{
-			j = 0; //Отвечает за досрочный выход из цикла при завершении сортировки
-			for (i; i < counter; i++)
-			{
-				if (random_array[i] > random_array[i + 1])
-				{
-					exchange = random_array[i];
-					random_array[i] = random_array[i + 1];
-					random_array[i + 1] = exchange;
-					j += 1;
-				}
-			}
-			i = gcounter; //После прохода направо самый левый элемент (из еще не отсортированых) остается в процессе сортировки
-			gcounter += 1; //Отвечает за сужение границ сортировки
-			counter = N - 1 - gcounter; //После прохода направо самый правый элемент (из еще не отсортированых) уже отсортирован
-			for (counter; i < counter; counter--)
-			{
-				if (random_array[counter] < random_array[counter - 1])
-				{
-					exchange = random_array[counter];
-					random_array[counter] = random_array[counter - 1];
-					random_array[counter - 1] = exchange;
-					j += 1;
-				}
-			}
-			i = gcounter; //После прохода налево самый левый элемент (из еще не отсортированых) уже отсортирован
-			counter = N - 1 - gcounter; //После прохода налево самый правый элемент (из еще не отсортированых) остается в процессе сортировки
-		} while (j != 0);
-		//Сбрасываем переменную i.
-		i = 0;
+		shaker_sort(N, random_array);
 		//Распечатываем отсортированный массив
 		cout << "Shaker sort:\n\n";
 		print_array(N, random_array);
