@@ -159,9 +159,62 @@ void shaker_sort(short int amount_of_elements, short int *arr)
 }
 
 void number_of_averages(short int amount_of_elements, short int *arr) //between the minimum and maximum values ​​in the array.
+//Требует на вход уже отсортированый в порядке возрастания массив!
 {
-	short int averages = arr[0] + arr [amount_of_elements - 1];
+	short int averages = (arr[0] + arr [amount_of_elements - 1]) / 2;
+	short int counter = 0;
+	short int for_return = 0;
+	for (counter; counter < amount_of_elements; counter++)
+	{
+		if (arr[counter] == averages)
+		{
+			for_return += 1;
+			if (arr[counter + 1] > arr[counter] and counter != amount_of_elements - 1)
+			{
+				break;
+			}
+		}
+	}
+	cout << "Averages = " << averages << "\n\n";
+	cout << "Number of averages between the minimum and maximum values in the array = " << for_return << "\n\n";
+}
 
+void less_than_a(short int amount_of_elements, short int* arr)
+//Требует на вход уже отсортированый в порядке возрастания массив!
+{
+	short int counter = amount_of_elements - 1;
+	short int a;
+	cout << "Enter the number 'a'(from -32767 before 32767 and only integer!)\n";
+	cout << "The number of elements less than 'a' will be displayed\n";
+	cin >> a;
+	for (counter; 0 <= counter; counter--)
+	{
+		if (arr[counter] < a)
+		{
+			cout << "Answer: " << counter + 1 << "\n\n";
+			return;
+		}
+	}
+	cout << "There are no such elements in the array!\n\n";
+}
+
+void more_than_b(short int amount_of_elements, short int* arr)
+//Требует на вход уже отсортированый в порядке возрастания массив!
+{
+	short int counter = 0;
+	short int b;
+	cout << "Enter the number 'b'(from -32767 before 32767 and only integer!)\n";
+	cout << "The number of elements more than 'b' will be displayed\n";
+	cin >> b;
+	for (counter; counter < amount_of_elements; counter++)
+	{
+		if (arr[counter] > b)
+		{
+			cout << "Answer: " << amount_of_elements - counter << "\n\n";
+			return;
+		}
+	}
+	cout << "There are no such elements in the array!\n\n";
 }
 
 int main()
@@ -169,7 +222,7 @@ int main()
 	char end = 'y';
 	while (end == 'y')
 	{
-		const short int N = 32767; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
+		const short int N = 100; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
 		short int *random_array = new short int[N]; //Массив помещается в "кучу", для стабильной работы стека.
 		
 		//Заполняем массив random_array случайными элементами и выводим его в консоль.
@@ -196,12 +249,17 @@ int main()
 		cout << "Shaker sort:\n\n";
 		print_array(N, random_array);
 
-		//Вывод в консоль мин. и макс. элемента из random_array.
+		//Вывод в консоль мин. и макс. элемента из сортированого random_array.
 		cout << "Minimum = " << random_array[0] << "\n";
 		cout << "Maximum = " << random_array[N - 1] << "\n\n";
 
 		//Выводит количество элементов, равных среднему значения max и min.
 		number_of_averages(N, random_array);
+
+		//Выводит количество элементов в массиве, меньше "a"
+		less_than_a(N, random_array);
+		//Выводит количество элементов в массиве, больше "b"
+		more_than_b(N, random_array);
 
 		//Проверка на повторный запуск программы
 		cout << "Run this program again now? (y/n)(one lowercase letter and 'Enter')\n\n";
