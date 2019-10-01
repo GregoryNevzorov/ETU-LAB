@@ -3,37 +3,90 @@
 #include <chrono>
 using namespace std;
 
-void print_array(int amount_of_elements, int *arr)
-//Процедура для вывода массива arr (int) длины amount_of_elements в консоль, 10 элементов на одной строке
+void print_array(short int amount_of_elements, short int *arr)
+//Процедура для вывода массива arr (short int) длины amount_of_elements в консоль.
+//Если количество элементов в массиве больше 200, печатает по 20 элементов в строке.
+//Если количество элементов в массиве больше 600, печатает по 40 элементов в строке.
 //Если значение элемента массива меньше 10 (у числа только 1 разряд), перед ним в консоль печатается дополнительный пробел.
 //После выполнения процедуры курсор переводится на две строки вниз.
 {
 	int counter = 0;
-	for (counter; counter < amount_of_elements; counter++)
+	if (amount_of_elements <= 200)
 	{
-		if ((counter + 1) % 10 == 0 and counter != 0)
+		for (counter; counter < amount_of_elements; counter++)
 		{
-			if (arr[counter] >= 10)
-				cout << arr[counter] << "\n";
+			if ((counter + 1) % 10 == 0 and counter != 0)
+			{
+				if (arr[counter] >= 10)
+					cout << arr[counter] << "\n";
+				else
+					cout << " " << arr[counter] << "\n";
+			}
 			else
-				cout << " " << arr[counter] << "\n";
+			{
+				if (arr[counter] >= 10)
+					cout << arr[counter] << " ";
+				else
+					cout << " " << arr[counter] << " ";
+			}
 		}
-		else
+		if (amount_of_elements % 10 != 0)
 		{
-			if (arr[counter] >= 10)
-				cout << arr[counter] << " ";
+			cout << "\n";
+		}
+	}
+	else if (amount_of_elements <= 600)
+	{
+		for (counter; counter < amount_of_elements; counter++)
+		{
+			if ((counter + 1) % 20 == 0 and counter != 0)
+			{
+				if (arr[counter] >= 10)
+					cout << arr[counter] << "\n";
+				else
+					cout << " " << arr[counter] << "\n";
+			}
 			else
-				cout << " " << arr[counter] << " ";
+			{
+				if (arr[counter] >= 10)
+					cout << arr[counter] << " ";
+				else
+					cout << " " << arr[counter] << " ";
+			}
+		}
+		if (amount_of_elements % 20 != 0)
+		{
+			cout << "\n";
+		}
+	}
+	else
+	{
+		for (counter; counter < amount_of_elements; counter++)
+		{
+			if ((counter + 1) % 40 == 0 and counter != 0)
+			{
+				if (arr[counter] >= 10)
+					cout << arr[counter] << "\n";
+				else
+					cout << " " << arr[counter] << "\n";
+			}
+			else
+			{
+				if (arr[counter] >= 10)
+					cout << arr[counter] << " ";
+				else
+					cout << " " << arr[counter] << " ";
+			}
+		}
+		if (amount_of_elements % 40 != 0)
+		{
+			cout << "\n";
 		}
 	}
 	cout << "\n";
-	if (amount_of_elements % 10 != 0)
-	{
-		cout << "\n";
-	}
 }
 
-void randomize_array(int amount_of_elements, int *arr)
+void randomize_array(short int amount_of_elements, short int *arr)
 //Процедура заполняет массив arr длины amount_of_elements случайными значениями [srand(time(NULL))] в диапазоне от 0 до 99 (int).
 {
 	srand(time(NULL));
@@ -49,8 +102,8 @@ int main()
 	char end = 'y';
 	while (end == 'y')
 	{
-		const int N = 100; //Размер массива (Натуральные числа, "0" не включен).
-		int random_array[N];
+		const short int N = 199; //Размер массива (Натуральные числа до 32767, "0" не включен).
+		short int random_array[N];
 		
 		//Счетчики для циклов for.
 		int i = 0;
