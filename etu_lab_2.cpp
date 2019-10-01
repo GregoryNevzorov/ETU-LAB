@@ -121,7 +121,7 @@ void bubble_sort(short int amount_of_elements, short int *arr)
 	} while (early_exit != 0);
 }
 
-void shaker_sort(short int amount_of_elements, short int* arr)
+void shaker_sort(short int amount_of_elements, short int *arr)
 {
 	short int left_border = 0;
 	short int right_border = 0;
@@ -156,6 +156,12 @@ void shaker_sort(short int amount_of_elements, short int* arr)
 		}
 		left_border += 1;
 	} while (early_exit != 0);
+}
+
+void number_of_averages(short int amount_of_elements, short int *arr) //between the minimum and maximum values ​​in the array.
+{
+	short int averages = arr[0] + arr [amount_of_elements - 1];
+
 }
 
 int main()
@@ -193,6 +199,9 @@ int main()
 		//Вывод в консоль мин. и макс. элемента из random_array.
 		cout << "Minimum = " << random_array[0] << "\n";
 		cout << "Maximum = " << random_array[N - 1] << "\n\n";
+
+		//Выводит количество элементов, равных среднему значения max и min.
+		number_of_averages(N, random_array);
 
 		//Проверка на повторный запуск программы
 		cout << "Run this program again now? (y/n)(one lowercase letter and 'Enter')\n\n";
