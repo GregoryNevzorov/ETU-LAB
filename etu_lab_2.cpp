@@ -106,7 +106,7 @@ void bubble_sort(short int amount_of_elements, short int *arr)
 	{
 		early_exit = 0;
 
-		for (i; i < amount_of_elements; i++)
+		for (i; i < amount_of_elements - 1; i++)
 		{
 			if (arr[i] > arr[i + 1])
 			{
@@ -132,7 +132,7 @@ void shaker_sort(short int amount_of_elements, short int* arr)
 	{
 		early_exit = 0;
 		i = left_border;
-		for (i; i < amount_of_elements - right_border; i++)
+		for (i; i < amount_of_elements - right_border - 1; i++)
 		{
 			if (arr[i] > arr[i + 1])
 			{
