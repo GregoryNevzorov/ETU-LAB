@@ -163,8 +163,8 @@ int main()
 	char end = 'y';
 	while (end == 'y')
 	{
-		const short int N = 100; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
-		short int random_array[N];
+		const short int N = 32767; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
+		short int *random_array = new short int[N]; //Массив помещается в "кучу", для стабильной работы стека.
 		
 		//Заполняем массив random_array случайными элементами и выводим его в консоль.
 		randomize_array(N, random_array);
