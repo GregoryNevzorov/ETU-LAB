@@ -100,8 +100,8 @@ void randomize_array(short int amount_of_elements, short int *arr)
 void bubble_sort(short int amount_of_elements, short int *arr)
 {
 	short int exchange;
-	short int i = 0; //Переменная-счетчик для цикла for
-	short int early_exit; //Отвечает за досрочный выход из цикла при завершении сортировки
+	short int i = 0; //Переменная-счетчик для цикла for.
+	short int early_exit; //Отвечает за досрочный выход из цикла при завершении сортировки.
 	do
 	{
 		early_exit = 0;
@@ -126,8 +126,8 @@ void shaker_sort(short int amount_of_elements, short int* arr)
 	short int left_border = 0;
 	short int right_border = 0;
 	short int exchange;
-	short int early_exit; //Отвечает за досрочный выход из цикла при завершении сортировки
-	short int i; //Переменная-счетчик для цикла for
+	long int early_exit; //Отвечает за досрочный выход из цикла при завершении сортировки.
+	short int i; //Переменная-счетчик для цикла for.
 	do
 	{
 		early_exit = 0;
@@ -166,7 +166,7 @@ int main()
 		const short int N = 100; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
 		short int random_array[N];
 		
-		//Заполняем массив random_array случайными элементами и выводим его в консоль
+		//Заполняем массив random_array случайными элементами и выводим его в консоль.
 		randomize_array(N, random_array);
 		cout << "random_array before sorting:\n\n";
 		print_array(N, random_array);
@@ -174,11 +174,11 @@ int main()
 
 		//Bubble sort
 		bubble_sort(N, random_array);
-		//Распечатываем отсортированный массив
+		//Распечатываем отсортированный массив.
 		cout << "Bubble sort:\n\n";
 		print_array(N, random_array);
 
-		//Заполняем массив random_array случайными элементами и выводим его в консоль
+		//Заполняем массив random_array случайными элементами и выводим его в консоль.
 		randomize_array(N, random_array);
 		cout << "random_array before sorting:\n\n";
 		print_array(N, random_array);
@@ -186,9 +186,13 @@ int main()
 
 		//Shaker sort
 		shaker_sort(N, random_array);
-		//Распечатываем отсортированный массив
+		//Распечатываем отсортированный массив.
 		cout << "Shaker sort:\n\n";
 		print_array(N, random_array);
+
+		//Вывод в консоль мин. и макс. элемента из random_array.
+		cout << "Minimum = " << random_array[0] << "\n";
+		cout << "Maximum = " << random_array[N - 1] << "\n\n";
 
 		//Проверка на повторный запуск программы
 		cout << "Run this program again now? (y/n)(one lowercase letter and 'Enter')\n\n";
