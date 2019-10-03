@@ -164,6 +164,30 @@ void shaker_sort(short int amount_of_elements, short int *arr)
 	cout << float(end_time - start_time) / 1000 << " sec\n\n";
 }
 
+void comb_sort_simple(short int amount_of_elements, short int* arr)
+{
+	short int i = 0;
+	short int counter = 0;
+	short int exchange;
+	unsigned int start_time = clock();
+	while (counter != amount_of_elements - 1)
+	{
+		for (i; i <= counter; i++)
+		{
+			if (arr[i] > arr[amount_of_elements - 1 - counter + i])
+			{
+				exchange = arr[i];
+				arr[i] = arr[amount_of_elements - 1 - counter + i];
+				arr[amount_of_elements - 1 - counter + i] = exchange;
+			}
+		}
+		i = 0;
+		counter += 1;
+	}
+	unsigned int end_time = clock();
+	cout << float(end_time - start_time) / 1000 << " sec\n\n";
+}
+
 void number_of_averages(short int amount_of_elements, short int *arr) //between the minimum and maximum values ​​in the array.
 //Требует на вход уже отсортированый в порядке возрастания массив!
 {
@@ -228,7 +252,7 @@ int main()
 	char end = 'y';
 	while (end == 'y')
 	{
-		const short int N = 32767; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
+		const short int N = 100; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
 		short int *random_array = new short int[N]; //Массив помещается в "кучу", для стабильной работы стека.
 		
 		//Заполняем массив random_array случайными элементами и выводим его в консоль.
@@ -253,6 +277,17 @@ int main()
 		shaker_sort(N, random_array);
 		//Распечатываем отсортированный массив.
 		cout << "Shaker sort:\n\n";
+		print_array(N, random_array);
+
+		//Заполняем массив random_array случайными элементами и выводим его в консоль.
+		randomize_array(N, random_array);
+		cout << "random_array before sorting:\n\n";
+		print_array(N, random_array);
+
+		//Comb sort
+		comb_sort_simple(N, random_array);
+		//Распечатываем отсортированный массив.
+		cout << "Comb sort:\n\n";
 		print_array(N, random_array);
 
 		//Вывод в консоль мин. и макс. элемента из сортированого random_array.
