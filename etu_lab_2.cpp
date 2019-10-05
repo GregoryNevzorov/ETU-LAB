@@ -97,7 +97,7 @@ void randomize_array(short int amount_of_elements, short int *arr)
 	}
 }
 
-void bubble_sort(short int amount_of_elements, short int *arr)
+float bubble_sort(short int amount_of_elements, short int *arr)
 {
 	short int exchange;
 	short int i = 0; //Переменная-счетчик для цикла for.
@@ -119,12 +119,13 @@ void bubble_sort(short int amount_of_elements, short int *arr)
 		}
 		amount_of_elements -= 1;
 		i = 0;
-	} while (early_exit != 0);
+	}
+	while (early_exit != 0);
 	unsigned int end_time = clock();
-	cout << float(end_time - start_time) / 1000 << " sec\n\n";
+	return float(end_time - start_time) / 1000;
 }
 
-void shaker_sort(short int amount_of_elements, short int *arr)
+float shaker_sort(short int amount_of_elements, short int *arr)
 {
 	short int left_border = 0;
 	short int right_border = 0;
@@ -161,10 +162,10 @@ void shaker_sort(short int amount_of_elements, short int *arr)
 		left_border += 1;
 	} while (early_exit != 0);
 	unsigned int end_time = clock();
-	cout << float(end_time - start_time) / 1000 << " sec\n\n";
+	return float(end_time - start_time) / 1000;
 }
 
-void comb_sort_simple(short int amount_of_elements, short int* arr)
+float comb_sort_simple(short int amount_of_elements, short int* arr)
 {
 	short int i = 0;
 	short int counter = 0;
@@ -185,7 +186,35 @@ void comb_sort_simple(short int amount_of_elements, short int* arr)
 		counter += 1;
 	}
 	unsigned int end_time = clock();
-	cout << float(end_time - start_time) / 1000 << " sec\n\n";
+	return float(end_time - start_time) / 1000;
+}
+
+float comb_sort_golden_ratio(short int amount_of_elements, short int* arr)
+{
+	const double reduction_factor = 1.247; // 1 / (1 - e ^ (-ф)) -- где "e" - основание натурального логарифма, а ф - золотое сечение.
+	long int step = amount_of_elements - 1;
+	short int i;
+	short int exchange;
+	short int early_exit;
+	unsigned int start_time = clock();
+	do
+	{
+		early_exit = 0;
+		for (i = 0; i < amount_of_elements - step; i++)
+		{
+			if (arr[i] > arr[i +step])
+			{
+				exchange = arr[i];
+				arr[i] = arr[i + step];
+				arr[i + step] = exchange;
+				early_exit += 1;
+			}
+		}
+		step /= reduction_factor;
+	}
+	while (early_exit != 0);
+	unsigned int end_time = clock();
+	return float(end_time - start_time) / 1000;
 }
 
 void number_of_averages(short int amount_of_elements, short int *arr) //between the minimum and maximum values ​​in the array.
@@ -262,7 +291,7 @@ int main()
 
 
 		//Bubble sort
-		bubble_sort(N, random_array);
+		float time1 = bubble_sort(N, random_array);
 		//Распечатываем отсортированный массив.
 		cout << "Bubble sort:\n\n";
 		print_array(N, random_array);
@@ -274,7 +303,7 @@ int main()
 
 
 		//Shaker sort
-		shaker_sort(N, random_array);
+		float time2 = shaker_sort(N, random_array);
 		//Распечатываем отсортированный массив.
 		cout << "Shaker sort:\n\n";
 		print_array(N, random_array);
@@ -284,11 +313,28 @@ int main()
 		cout << "random_array before sorting:\n\n";
 		print_array(N, random_array);
 
-		//Comb sort
-		comb_sort_simple(N, random_array);
+		//Comb sort simple
+		float time3 = comb_sort_simple(N, random_array);
 		//Распечатываем отсортированный массив.
-		cout << "Comb sort:\n\n";
+		cout << "Comb sort simple:\n\n";
 		print_array(N, random_array);
+
+		//Заполняем массив random_array случайными элементами и выводим его в консоль.
+		randomize_array(N, random_array);
+		cout << "random_array before sorting:\n\n";
+		print_array(N, random_array);
+
+		//Comb sort golden ratio
+		float time4 = comb_sort_golden_ratio(N, random_array);
+		//Распечатываем отсортированный массив.
+		cout << "Comb sort golden ratio:\n\n";
+		print_array(N, random_array);
+
+		//Время сортировки
+		cout << "Sorting time:\n" << "Bubble sort - " << time1 << "sec.\n";
+		cout << "Shaker sort - " << time2 << "sec.\n";
+		cout << "Comb sort simple - " << time3 << "sec.\n";
+		cout << "Comb sort golden ratio - " << time4 << "sec.\n\n";
 
 		//Вывод в консоль мин. и макс. элемента из сортированого random_array.
 		cout << "Minimum = " << random_array[0] << "\n";
