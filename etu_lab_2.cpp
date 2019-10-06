@@ -191,7 +191,7 @@ float comb_sort_simple(short int amount_of_elements, short int* arr)
 
 float comb_sort_golden_ratio(short int amount_of_elements, short int* arr)
 {
-	const double reduction_factor = 1.247; // 1 / (1 - e ^ (-ф)) -- где "e" - основание натурального логарифма, а ф - золотое сечение.
+	const float reduction_factor = 1.247F; // 1 / (1 - e ^ (-ф)) -- где "e" - основание натурального логарифма, а ф - золотое сечение.
 	long int step = amount_of_elements - 1;
 	short int i;
 	short int exchange;
@@ -212,7 +212,7 @@ float comb_sort_golden_ratio(short int amount_of_elements, short int* arr)
 		}
 		step /= reduction_factor;
 	}
-	while (early_exit != 0);
+	while (early_exit != 0 or step >= 1);
 	unsigned int end_time = clock();
 	return float(end_time - start_time) / 1000;
 }
@@ -281,7 +281,7 @@ int main()
 	char end = 'y';
 	while (end == 'y')
 	{
-		const short int N = 100; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
+		const short int N = 10000; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
 		short int *random_array = new short int[N]; //Массив помещается в "кучу", для стабильной работы стека.
 		
 		//Заполняем массив random_array случайными элементами и выводим его в консоль.
