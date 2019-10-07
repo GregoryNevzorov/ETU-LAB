@@ -217,6 +217,26 @@ float comb_sort_golden_ratio(short int amount_of_elements, short int* arr)
 	return float(end_time - start_time) / 1000;
 }
 
+float insert_sort(short int amount_of_elements, short int* arr)
+{
+	short int buffer;
+	short int i;
+	unsigned int start_time = clock();
+	for (short int subarray_size = 1; subarray_size < amount_of_elements ; subarray_size++)
+	{
+		buffer = arr[subarray_size];
+		i = subarray_size;
+		while (i != 0 and buffer < arr[i - 1])
+		{
+			arr[i] = arr[i - 1];
+			i -= 1;
+		}
+		arr[i] = buffer;
+	}
+	unsigned int end_time = clock();
+	return float(end_time - start_time) / 1000;
+}
+
 void number_of_averages(short int amount_of_elements, short int *arr) //between the minimum and maximum values ​​in the array.
 //Требует на вход уже отсортированый в порядке возрастания массив!
 {
@@ -330,11 +350,24 @@ int main()
 		cout << "Comb sort golden ratio:\n\n";
 		print_array(N, random_array);
 
+		//Заполняем массив random_array случайными элементами и выводим его в консоль.
+		randomize_array(N, random_array);
+		cout << "random_array before sorting:\n\n";
+		print_array(N, random_array);
+
+		//Insert sort
+		float time5 = insert_sort(N, random_array);
+		//Распечатываем отсортированный массив.
+		cout << "Insertion sort:\n\n";
+		print_array(N, random_array);
+
 		//Время сортировки
-		cout << "Sorting time:\n" << "Bubble sort - " << time1 << "sec.\n";
+		cout << "Sorting time:\n";
+		cout << "Bubble sort - " << time1 << "sec.\n";
 		cout << "Shaker sort - " << time2 << "sec.\n";
 		cout << "Comb sort simple - " << time3 << "sec.\n";
-		cout << "Comb sort golden ratio - " << time4 << "sec.\n\n";
+		cout << "Comb sort golden ratio - " << time4 << "sec.\n";
+		cout << "Insertion sort - " << time5 << "sec.\n\n";
 
 		//Вывод в консоль мин. и макс. элемента из сортированого random_array.
 		cout << "Minimum = " << random_array[0] << "\n";
