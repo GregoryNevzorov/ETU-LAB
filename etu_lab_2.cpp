@@ -268,7 +268,6 @@ void quick_sort(short int* arr, short int low, short int high)
 			arr[supporting_element_index] = arr[left_index];
 			arr[left_index] = exchange;
 			supporting_element_index = left_index;
-			print_array(high - low, arr);
 			break;
 		}
 		else
@@ -276,7 +275,6 @@ void quick_sort(short int* arr, short int low, short int high)
 			exchange = arr[left_index];
 			arr[left_index] = arr[right_index];
 			arr[right_index] = exchange;
-			print_array(high - low, arr);
 		}
 	}
 	quick_sort(arr, low, supporting_element_index);
@@ -353,7 +351,7 @@ int main()
 	char end = 'y';
 	while (end == 'y')
 	{
-		const short int N = 10; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
+		const short int N = 5000; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
 		short int *random_array = new short int[N]; //Массив помещается в "кучу", для стабильной работы стека.
 		
 		//Заполняем массив random_array случайными элементами и выводим его в консоль.
