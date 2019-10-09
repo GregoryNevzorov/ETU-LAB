@@ -346,6 +346,34 @@ void more_than_b(short int amount_of_elements, short int* arr)
 	cout << "There are no such elements in the array!\n\n";
 }
 
+void task_2variant(short int amount_of_elements, short int* arr)
+{
+	short int i;
+	short int sub; //Пользовательская величина
+	short int even_value = 0; //Количество четных элементов с четными значениями
+	short int odd_value = 0; //Количество нечетных элементов с нечетными значениями
+	srand(time(NULL));
+	short int random_value = rand() % 10;
+	cout << "Enter the value by which you want to reduce all even elements. (Only integer numbers, 0 <= x < 3600)\n";
+	// 3600 * 9(Максимально возможное случайное значение) = 32400. Это практически максимум short int.
+	cin >> sub;
+	cout << "\n";
+	for (i = 0; i < amount_of_elements; i += 2)
+	{
+		arr[i] -= sub;
+		arr[i] *= random_value;
+		if (arr[i] % 2 == 0) even_value += 1;
+	}
+	for (i = 1; i < amount_of_elements; i += 2)
+	{
+		if (arr[i] % 2 == 1) odd_value += 1;
+	}
+	//print_array(amount_of_elements, arr); -- Неточное форматирование!
+	cout << "Random value = " << random_value << "\n";
+	cout << "Even value = " << even_value << "\n";
+	cout << "Odd value = " << odd_value << "\n\n";
+}
+
 int main()
 {
 	char end = 'y';
@@ -447,6 +475,9 @@ int main()
 		less_than_a(N, random_array);
 		//Выводит количество элементов в массиве, больше "b"
 		more_than_b(N, random_array);
+
+		//Задание по вариантам.
+		task_2variant(N, random_array);
 
 		//Проверка на повторный запуск программы
 		cout << "Run this program again now? (y/n)(one lowercase letter and 'Enter')\n\n";
