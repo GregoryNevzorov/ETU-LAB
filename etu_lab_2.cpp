@@ -240,20 +240,26 @@ float insert_sort(short int amount_of_elements, short int* arr)
 void number_of_averages(short int amount_of_elements, short int *arr) //between the minimum and maximum values ​​in the array.
 //Требует на вход уже отсортированый в порядке возрастания массив!
 {
+	unsigned int start_time = clock();
 	short int averages = (arr[0] + arr [amount_of_elements - 1]) / 2;
 	short int counter = 0;
 	short int for_return = 0;
 	for (counter; counter < amount_of_elements; counter++)
 	{
-		if (arr[counter] == averages)
+		if (arr[counter] > averages)
 		{
-			for_return += 1;
-			if (arr[counter + 1] > arr[counter] and counter != amount_of_elements - 1)
+			break;
+		}
+		else
+		{
+			if (arr[counter] == averages)
 			{
-				break;
+				for_return += 1;
 			}
 		}
 	}
+	unsigned int end_time = clock();
+	cout << float(end_time - start_time) / 1000 << " sec.\n";
 	cout << "Averages = " << averages << "\n\n";
 	cout << "Number of averages between the minimum and maximum values in the array = " << for_return << "\n\n";
 }
@@ -301,7 +307,7 @@ int main()
 	char end = 'y';
 	while (end == 'y')
 	{
-		const short int N = 32767; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
+		const short int N = 100; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
 		short int *random_array = new short int[N]; //Массив помещается в "кучу", для стабильной работы стека.
 		
 		//Заполняем массив random_array случайными элементами и выводим его в консоль.
