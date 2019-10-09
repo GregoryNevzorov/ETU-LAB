@@ -237,6 +237,52 @@ float insert_sort(short int amount_of_elements, short int* arr)
 	return float(end_time - start_time) / 1000;
 }
 
+void quick_sort(short int* arr, short int low, short int high)
+{                        //main()  -->  // 0 // amount_of_elements
+	if (high - low < 2) return;
+	short int exchange;
+	short int left_index = low;
+	short int right_index = high - 1;
+	short int supporting_element_index = high - 1; //Опорный элемент - самый правый элемент.
+	while (true)
+	{
+		for (left_index; left_index < high; left_index++)
+		{
+			if (arr[left_index] > arr[supporting_element_index])
+			{
+				break;
+			}
+		}
+		if (left_index == high) left_index -= 1;
+		for (right_index; low - 1 < right_index; right_index--)
+		{
+			if (arr[right_index] < arr[supporting_element_index])
+			{
+				break;
+			}
+		}
+		if (right_index == low - 1) right_index += 1;
+		if (left_index >= right_index)
+		{
+			exchange = arr[supporting_element_index];
+			arr[supporting_element_index] = arr[left_index];
+			arr[left_index] = exchange;
+			supporting_element_index = left_index;
+			print_array(high - low, arr);
+			break;
+		}
+		else
+		{
+			exchange = arr[left_index];
+			arr[left_index] = arr[right_index];
+			arr[right_index] = exchange;
+			print_array(high - low, arr);
+		}
+	}
+	quick_sort(arr, low, supporting_element_index);
+	quick_sort(arr, supporting_element_index + 1, high);
+}
+
 void number_of_averages(short int amount_of_elements, short int *arr) //between the minimum and maximum values ​​in the array.
 //Требует на вход уже отсортированый в порядке возрастания массив!
 {
@@ -307,7 +353,7 @@ int main()
 	char end = 'y';
 	while (end == 'y')
 	{
-		const short int N = 100; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
+		const short int N = 10; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
 		short int *random_array = new short int[N]; //Массив помещается в "кучу", для стабильной работы стека.
 		
 		//Заполняем массив random_array случайными элементами и выводим его в консоль.
@@ -367,13 +413,29 @@ int main()
 		cout << "Insertion sort:\n\n";
 		print_array(N, random_array);
 
+		//Заполняем массив random_array случайными элементами и выводим его в консоль.
+		randomize_array(N, random_array);
+		cout << "random_array before sorting:\n\n";
+		print_array(N, random_array);
+
+		//Quick sort
+		//Из-за рекурсии время удобнее считать вне процедуры.
+		unsigned int start_time = clock();
+		quick_sort(random_array, 0, N);
+		unsigned int end_time = clock();
+		float time6 = float(end_time - start_time) / 1000;
+		//Распечатываем отсортированный массив.
+		cout << "Quick sort:\n\n";
+		print_array(N, random_array);
+
 		//Время сортировки
 		cout << "Sorting time:\n";
 		cout << "Bubble sort - " << time1 << "sec.\n";
 		cout << "Shaker sort - " << time2 << "sec.\n";
 		cout << "Comb sort simple - " << time3 << "sec.\n";
 		cout << "Comb sort golden ratio - " << time4 << "sec.\n";
-		cout << "Insertion sort - " << time5 << "sec.\n\n";
+		cout << "Insertion sort - " << time5 << "sec.\n";
+		cout << "Quick sort - " << time6 << "sec.\n\n";
 
 		//Вывод в консоль мин. и макс. элемента из сортированого random_array.
 		cout << "Minimum = " << random_array[0] << "\n";
@@ -381,6 +443,7 @@ int main()
 
 		//Выводит количество элементов, равных среднему значения max и min.
 		number_of_averages(N, random_array);
+		//Т.к. в контексте данной задачи поиск занимает меньше одной тысячной секунды, реализовывать бинарную версию поиска не имеет смысла.
 
 		//Выводит количество элементов в массиве, меньше "a"
 		less_than_a(N, random_array);
