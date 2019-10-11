@@ -368,7 +368,7 @@ void task_2variant(short int amount_of_elements, short int* arr)
 	{
 		if (arr[i] % 2 == 1) odd_value += 1;
 	}
-	//print_array(amount_of_elements, arr); -- Неточное форматирование!
+	print_array(amount_of_elements, arr);
 	cout << "Random value = " << random_value << "\n";
 	cout << "Even value = " << even_value << "\n";
 	cout << "Odd value = " << odd_value << "\n\n";
@@ -379,7 +379,7 @@ int main()
 	char end = 'y';
 	while (end == 'y')
 	{
-		const short int N = 5000; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
+		const short int N = 100; //Размер массива (Натуральные числа до 32767 включая, "0" не включен).
 		short int *random_array = new short int[N]; //Массив помещается в "кучу", для стабильной работы стека.
 		
 		//Заполняем массив random_array случайными элементами и выводим его в консоль.
