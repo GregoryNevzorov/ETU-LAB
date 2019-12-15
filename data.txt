@@ -1,0 +1,6 @@
+10 9 8 7 6 5 4 3 2 1 0
+
+
+*First number - is amount of elements.
+*The rest - are array elements.
+*Elements can be specified more than their number, but not less!
